@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script type="text/javascript">
+    window.onload = function() {
+      var bat = document.getElementById('bat');
+      document.getElementById('link').onclick = function(code) {
+
+        // Browsers that support the download tag:
+        var a = document.createElement('a')
+        if (typeof a.download != 'undefined'){
+          this.href = 'data:text/plain;base64,' + btoa(bat.value);
+
+        // Fallback for IE10+
+        } else if (window.navigator.msSaveBlob){
+          var blobObject = new Blob([bat.value]);
+          window.navigator.msSaveBlob(blobObject, 'code.bat');
+
+        // Browser is not supported:
+        } else {
+          alert('Your browser does not support this feature.');
+        }
+      };
+    };
+    </script>
+  </head>
+  <body>
+    <div id="txtWrap">
+      <textarea id="bat"></textarea>
+    </div>
+    <a href="" id="link" download="code.bat">Download Above Code</a>
+  </body>
+</html>
